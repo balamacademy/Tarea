@@ -48,31 +48,44 @@ def segundaderivadanumerica(x_actual,f):
     numerado= f(x_actual + delta) - (2 * f (x_actual + f(x_actual- delta))) 
     return numerado / (delta**2)
 
-def biseccionmethod(a_orginal,b_original,e,f):
+
+
+
+def biseccionmethod(a_orginal, b_original, e, funcion):
+
+
     a = np.random.uniform(a_orginal, b_original)
     b = np.random.uniform(a_orginal, b_original)
-    while(primeraderivadanumerica(a,f) > 0):
+
+
+
+
+
+
+
+    # a por a nueva
+    # b por b nueva
+    while(primeraderivadanumerica(a, funcion) > 0):
         a = np.random.uniform(a_orginal, b_original)
-        print(primeraderivadanumerica(a,f))
     
-    while (primeraderivadanumerica(b,f) < 0): 
+    while (primeraderivadanumerica(b, funcion) < 0): 
         b = np.random.uniform(a_orginal, b_original)
+    
     x1=a
     x2=b
     z = ((x2+x1)/2)
-    #print(primeraderivadanumerica(x1,f))
-    while(primeraderivadanumerica(z,f) > e):
-        #print(z)
-        if primeraderivadanumerica(z,f) < 0: 
-            x1=z
-            z=0
+    
+    while(primeraderivadanumerica(z, funcion) > e):
+        if primeraderivadanumerica(z, funcion) < 0: 
+            x1 = z
+            z = 0
             z = int((x2+x1)/2)
-        elif primeraderivadanumerica(z,f) > 0: 
-            x2=z
-            z=0
+
+        elif primeraderivadanumerica(z,funcion) > 0: 
+            x2 = z
+            z = 0
             z = ((x2+x1)/2)
     
-    print("Listo!")
     return x1 , x2
 
 

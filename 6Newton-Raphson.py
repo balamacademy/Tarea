@@ -55,22 +55,40 @@ def segunda_derivada(x, f):
 
 
 
-def newton_raphson(x,e,f):
-    k=1
-    x_actual=x[k]
-    xderiv=primera_derivada(x_actual,f)
-    xderiv2=segunda_derivada(x_actual,f)
-    xsig= x_actual  - (xderiv/xderiv2)
-    while (primera_derivada(xsig,f) > e):
-        k+=1
-        if k >= len(x):
-            return xsig
-        x_actual=x[k]
-        xderiv=primera_derivada(x_actual,f)
-        xderiv2=segunda_derivada(x_actual,f)
-        xsig= x_actual  - (xderiv/xderiv2)
+# def newton_raphson(x,e,f):
+#     k=1
+#     x_actual=x[k]
+#     xderiv=primera_derivada(x_actual,f)
+#     xderiv2=segunda_derivada(x_actual,f)
+#     xsig= x_actual  - (xderiv/xderiv2)
+#     while (primera_derivada(xsig,f) > e):
+#         k+=1
+#         if k >= len(x):
+#             return xsig
+#         x_actual=x[k]
+#         xderiv=primera_derivada(x_actual,f)
+#         xderiv2=segunda_derivada(x_actual,f)
+#         xsig= x_actual  - (xderiv/xderiv2)
         
-    return xsig
+#     return xsig
+
+
+
+def newton_raphson(x, e, funcion):
+    k = 1
+    x_actual = x[k]
+    x_derivada1 = primera_derivada(x_actual, funcion)
+    x_derivada2 = segunda_derivada(x_actual, funcion)
+    x_siguiente = x_actual - (x_derivada1 / x_derivada2)
+    while (primera_derivada(x_siguiente, funcion) > e):
+        k += 1
+        if k >= len(x):
+            return x_siguiente
+        x_actual = x[k]
+        x_derivada1 = primera_derivada(x_actual, funcion)
+        x_derivada2 = segunda_derivada(x_actual, funcion)
+        x_siguiente = x_actual - (x_derivada1 / x_derivada2)
+    return x_siguiente
 
 
 
@@ -78,46 +96,7 @@ def newton_raphson(x,e,f):
 
 
 
-def newton_raphson(f, df, x0, tol=1e-6, max_iter=100):
-    """
-    Implementación del método de Newton-Raphson para encontrar la raíz de una función.
 
-    Args:
-    f: Función cuya raíz se quiere encontrar.
-    df: Derivada de la función f.
-    x0: Valor inicial para iniciar las iteraciones.
-    tol: Tolerancia, criterio de convergencia.
-    max_iter: Número máximo de iteraciones permitidas.
 
-    Returns:
-    x: La aproximación de la raíz.
-    """
-    x = x0
-    for _ in range(max_iter):
-        fx = f(x)
-        if abs(fx) < tol:
-            return x
-        dfx = df(x)
-        if dfx == 0:
-            raise ValueError("La derivada se hizo cero.")
-        x = x - fx / dfx
-    raise ValueError("El método no convergió después de {} iteraciones.".format(max_iter))
 
-# Ejemplo de uso
-if __name__ == "__main__":
-    import math
 
-    # Definición de la función y su derivada
-    def f(x):
-        return x**2 - 4
-
-    def df(x):
-        return 2 * x
-
-    # Valor inicial
-    x0 = 3
-
-    # Llamada al método de Newton-Raphson
-    raiz = newton_raphson(f, df, x0)
-
-    print("La raíz encontrada es:", raiz)
