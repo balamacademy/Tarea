@@ -44,14 +44,13 @@ def prueba(x):
 
 
 
-
 def primera_derivada(x, f):
-    delta=0.0001
-    return ( (f(x) + delta) - (f(x)-delta) ) / (2 * delta)
+    delta = 0.0001
+    return (f(x + delta) - f(x - delta)) / (2 * delta)
 
 def segunda_derivada(x, f):
-    delta=0.0001
-    return ( (f(x) + delta) - (2*f(x)) + (f(x)-delta) )/ delta
+    delta = 0.0001
+    return (f(x + delta) - 2 * f(x) + f(x - delta))/(delta**2)
 
 
 
