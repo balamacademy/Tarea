@@ -38,13 +38,16 @@ def prueba(x):
     return (x**2)
 
 
-def primera_derivada(x, f):
-    delta = 0.0001
-    return (f(x + delta) - f(x - delta)) / (2 * delta)
 
-def segunda_derivada(x, f):
-    delta = 0.0001
-    return (f(x + delta) - 2 * f(x) + f(x - delta)) / (delta**2)
+def primera_derivada(x_actual,f):
+    delta=0.0001
+    operacion = f(x_actual + delta) - f (x_actual - delta) 
+    return operacion / (2 * delta)
+
+def segunda_derivada(x_actual,f):
+    delta=0.0001
+    operacion = f(x_actual + delta) - (2 * f (x_actual + f(x_actual- delta))) 
+    return operacion / (delta**2)
 
 
 
@@ -54,50 +57,29 @@ def metodo_biseccion(x, funcion,e):
 
     a = np.random.uniform(a_orginal, b_original)
     b = np.random.uniform(a_orginal, b_original)
-
-
-
-
+    
+    while(primera_derivada(a, funcion) > 0):
+        a = np.random.uniform(a_orginal, b_original)
+    
+    while (segunda_derivada(b, funcion) < 0): 
+        b = np.random.uniform(a_orginal, b_original)
     
     x1 = a
     x2 = b
-    while True:
-        z = (x1 + x2) / 2
-        f_primaz = primera_derivada(z, funcion)
+    z = ((x2+x1)/2)
     
-        if abs(x2 - x1) < e:  
-            break
-        elif f_primaz < 0:
+    while(primera_derivada(z, funcion) > e):
+        if primera_derivada(z, funcion) < 0: 
             x1 = z
-        elif f_primaz > 0:
+            z = 0
+            z = int((x2+x1)/2)
+
+        elif primera_derivada(z,funcion) > 0: 
             x2 = z
-
-    return x1, x2
-
-
+            z = 0
+            z = ((x2+x1)/2)
     
-    # while(primeraderivadanumerica(a, funcion) > 0):
-    #     a = np.random.uniform(a_orginal, b_original)
-    
-    # while (primeraderivadanumerica(b, funcion) < 0): 
-    #     b = np.random.uniform(a_orginal, b_original)
-    
-    # x1=a
-    # x2=b
-    # z = ((x2+x1)/2)
-    
-    # while(primeraderivadanumerica(z, funcion) > e):
-    #     if primeraderivadanumerica(z, funcion) < 0: 
-    #         x1 = z
-    #         z = 0
-    #         z = int((x2+x1)/2)
-
-    #     elif primeraderivadanumerica(z,funcion) > 0: 
-    #         x2 = z
-    #         z = 0
-    #         z = ((x2+x1)/2)
-    
-    # return x1 , x2
+    return x1 , x2
 
 
 
@@ -115,8 +97,8 @@ print(metodo_biseccion(x_caja, caja,  n_precision))
 x_funcion1 = np.arange(0.1, 10)
 print(metodo_biseccion(x_funcion1, funcion1, n_precision))
 
-x_funcion2 = np.arange(0.1, 5)
-print(metodo_biseccion(x_funcion2, funcion2, n_precision))
+# x_funcion2 = np.arange(0.1, 5)
+# print(metodo_biseccion(x_funcion2, funcion2, n_precision))
 
 
 x_funcion3 = np.arange(-2.5, 2.5)
