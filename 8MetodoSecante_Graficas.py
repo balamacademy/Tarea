@@ -11,8 +11,8 @@ def lata(x):
 
 # x = np.arange(2, 3.1, 0.1)
 def caja(x):
-    operacion =(20 - 2 * x) * (10 - 2 * x) * (x)
-    return operacion
+    return -1*(((20 - (2 * x)) * (10 - (2 * x))) * (x))
+
 
 # Valores entre 0 o igual a 10
 def funcion1(x):
