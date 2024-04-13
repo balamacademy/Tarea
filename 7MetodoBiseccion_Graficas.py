@@ -39,15 +39,15 @@ def prueba(x):
     return (x**2)
 
 
-def primera_derivada(x_actual,f):
-    delta=0.0001
-    numerador= f(x_actual + delta) - f (x_actual - delta) 
-    return numerador / (2 * delta)
+def primera_derivada(x_actual,funcion):
+    delta = 0.0001
+    operacion = funcion(x_actual + delta) - funcion(x_actual - delta) 
+    return operacion / (2 * delta)
 
-def segunda_derivada(x_actual,f):
-    delta=0.0001
-    numerado= f(x_actual + delta) - (2 * f (x_actual + f(x_actual- delta))) 
-    return numerado / (delta**2)
+def segunda_derivada(x_actual,funcion):
+    delta = 0.0001
+    operacion = funcion(x_actual + delta) - (2 * funcion(x_actual + funcion(x_actual- delta))) 
+    return operacion / (delta**2)
 
 
 
@@ -73,8 +73,8 @@ def metodo_biseccion(x, e, funcion):
     while (primera_derivada(b, funcion) < 0): 
         b = np.random.uniform(a_orginal, b_original)
     
-    x1=a
-    x2=b
+    x1 = a
+    x2 = b
     z = ((x2+x1)/2)
     
     while(primera_derivada(z, funcion) > e):
