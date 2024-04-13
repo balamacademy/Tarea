@@ -52,7 +52,7 @@ def segunda_derivada(x, f):
 
 
 
-def newton_raphson(x, e, funcion):
+def newton_raphson(x, funcion, e):
     k = 1
     x_actual = x[k]
     x_derivada1 = primera_derivada(x_actual, funcion)
@@ -67,6 +67,30 @@ def newton_raphson(x, e, funcion):
         x_derivada2 = segunda_derivada(x_actual, funcion)
         x_siguiente = x_actual - (x_derivada1 / x_derivada2)
     return x_siguiente
+
+
+n_precision = 0.5
+
+x_lata = np.arange(0.5, 8.5)
+print(newton_raphson(x_lata, lata,  n_precision))
+
+x_caja = np.arange(2, 3.1)
+print(newton_raphson(x_caja, caja,  n_precision))
+
+
+x_funcion1 = np.arange(0.1, 10)
+print(newton_raphson(x_funcion1, funcion1, n_precision))
+
+x_funcion2 = np.arange(0.1, 5)
+print(newton_raphson(x_funcion2, funcion2, n_precision))
+
+
+x_funcion3 = np.arange(-2.5, 2.5)
+print(newton_raphson(x_funcion3, funcion3, n_precision))
+
+
+x_funcion4 = np.arange(-1.5, 3)
+print(newton_raphson(x_funcion4, funcion4,  n_precision))
 
 
 

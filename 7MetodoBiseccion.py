@@ -51,7 +51,7 @@ def segundaderivadanumerica(x_actual,f):
 
 
 
-def biseccionmethod(a_orginal, b_original, e, funcion):
+def metodo_biseccion(a_orginal, b_original, e, funcion):
 
 
     a = np.random.uniform(a_orginal, b_original)

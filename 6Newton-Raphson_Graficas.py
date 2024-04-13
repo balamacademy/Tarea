@@ -2,41 +2,23 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
-
-# x = np.arange(0.5, 8.5, 0.5)
 def lata(x):
-    operacion = ((2 * np.pi) * (x**2) + 500/x)
-    return operacion
+    return (2 * np.pi) * (x**2) + 500/x
 
-# x = np.arange(2, 3.1, 0.1)
 def caja(x):
-    return -1*(((20 - (2 * x)) * (10 - (2 * x))) * (x))
+    return -1 * (((20 - (2 * x)) * (10 - (2 * x))) * (x))
 
-# Valores entre 0 o igual a 10
 def funcion1(x):
-    operacion = (x**2) + (54/x)
-    return operacion
+    return x**2 + 54/x
 
-# Valores entre 0 o igual a 5
 def funcion2(x):
-    operacion = (x**3) + (2*x) - 3
-    return operacion
+    return x**3 + 2*x - 3
 
-# Valores entre -2.5 o igual a 2.5
 def funcion3(x):
-    operacion = (x**4) + (x**2) - 33
-    return operacion
+    return x**4 + x**2 - 33
 
-# Valores entre -1.5 o igual a 3
 def funcion4(x):
-    operacion = (3*(x**4)) - (8*(x**3)) - (6*(x**2)) + (12*x) 
-    return operacion
-
-
-
-
-
-
+    return 3*(x**4) - 8*(x**3) - 6*(x**2) + 12*x
 
 def primera_derivada(x, f):
     delta = 0.0001
@@ -44,21 +26,15 @@ def primera_derivada(x, f):
 
 def segunda_derivada(x, f):
     delta = 0.0001
-    return (f(x + delta) - 2 * f(x) + f(x - delta))/(delta**2)
-
-
-
-
-
-
+    return (f(x + delta) - 2 * f(x) + f(x - delta)) / (delta**2)
 
 def metodo_newton(x, e, funcion):
-    k = 1
+    k = 0
     x_actual = x[k]
     x_derivada1 = primera_derivada(x_actual, funcion)
     x_derivada2 = segunda_derivada(x_actual, funcion)
     x_siguiente = x_actual - (x_derivada1 / x_derivada2)
-    while (primera_derivada(x_siguiente, funcion) > e):
+    while abs(primera_derivada(x_siguiente, funcion)) > e:
         k += 1
         if k >= len(x):
             return x_siguiente
@@ -68,76 +44,38 @@ def metodo_newton(x, e, funcion):
         x_siguiente = x_actual - (x_derivada1 / x_derivada2)
     return x_siguiente
 
-
-
-
-
-
-
-
-
-
-
 def plot_function(ax, x_range, y_values, label, color):
     ax.plot(x_range, y_values, label=label, color=color)
 
-
-def plot_points(ax, x_values, y_values, label, color):
-    ax.scatter(x_values, y_values, label=label, color=color)
+def plot_points(ax, x_value, y_value, label, color):
+    ax.scatter(x_value, y_value, label=label, color=color)
 
 n_precisions = [0.5, 0.1, 0.01, 0.0001]
 
 for n_precision in n_precisions:
-    # Definición de los rangos para cada función
-    x_lata = np.arange(0.5, 8.5, 0.01)
-    x_caja = np.arange(2, 3.1, 0.01)
-    x_funcion1 = np.arange(0.1, 10, 0.01)
-    x_funcion2 = np.arange(0.1, 5, 0.01)
-    x_funcion3 = np.arange(-2.5, 2.5, 0.01)
-    x_funcion4 = np.arange(-1.5, 3, 0.01)
-
-    # Ejecutar la búsqueda exhaustiva y obtener los puntos mínimos para cada función
-    min_lata = metodo_newton(x_lata, n_precision, lata)
-    min_caja = metodo_newton(x_caja,n_precision, caja)
-    min_funcion1 = metodo_newton(x_funcion1, n_precision, funcion1)
-    min_funcion2 = metodo_newton(x_funcion2, n_precision, funcion2)
-    min_funcion3 = metodo_newton(x_funcion3, n_precision, funcion3)
-    min_funcion4 = metodo_newton(x_funcion4, n_precision, funcion4)
-
-    # Calcular los metodo_newtoniones en los rangos dados
-    y_lata = lata(x_lata)
-    y_caja = caja(x_caja)
-    y_funcion1 = funcion1(x_funcion1)
-    y_funcion2 = funcion2(x_funcion2)
-    y_funcion3 = funcion3(x_funcion3)
-    y_funcion4 = funcion4(x_funcion4)
-
-    # Graficar
     fig, axs = plt.subplots(2, 3, figsize=(15, 10))
+    x_ranges = [np.arange(0.5, 8.5, 0.01),
+                np.arange(2, 3.1, 0.01),
+                np.arange(0.1, 10, 0.01),
+                np.arange(0.1, 5, 0.01),
+                np.arange(-2.5, 2.5, 0.01),
+                np.arange(-1.5, 3, 0.01)]
+    
+    functions = [lata, caja, funcion1, funcion2, funcion3, funcion4]
 
-    plot_function(axs[0, 0], x_lata, y_lata, 'Lata', 'blue')
-    plot_points(axs[0, 0], [min_lata[0], min_lata[1]], [lata(min_lata[0]), lata(min_lata[1])], 'Min Lata', 'red')
-    axs[0, 0].set_title(f'Lata (n_precision = {n_precision})')
+    for i, (x_range, func) in enumerate(zip(x_ranges, functions)):
+        min_point = metodo_newton(x_range, n_precision, func)
+        y_values = func(x_range)
 
-    plot_function(axs[0, 1], x_caja, y_caja, 'Caja', 'green')
-    plot_points(axs[0, 1], [min_caja[0], min_caja[1]], [caja(min_caja[0]), caja(min_caja[1])], 'Min Caja', 'red')
-    axs[0, 1].set_title(f'Caja (n_precision = {n_precision})')
+        row = i // 3
+        col = i % 3
 
-    plot_function(axs[0, 2], x_funcion1, y_funcion1, 'Función 1', 'orange')
-    plot_points(axs[0, 2], [min_funcion1[0], min_funcion1[1]], [funcion1(min_funcion1[0]), funcion1(min_funcion1[1])], 'Min Función 1', 'red')
-    axs[0, 2].set_title(f'Función 1 (n_precision = {n_precision})')
+        ax = axs[row, col]
 
-    plot_function(axs[1, 0], x_funcion2, y_funcion2, 'Función 2', 'purple')
-    plot_points(axs[1, 0], [min_funcion2[0], min_funcion2[1]], [funcion2(min_funcion2[0]), funcion2(min_funcion2[1])], 'Min Función 2', 'red')
-    axs[1, 0].set_title(f'Función 2 (n_precision = {n_precision})')
-
-    plot_function(axs[1, 1], x_funcion3, y_funcion3, 'Función 3', 'brown')
-    plot_points(axs[1, 1], [min_funcion3[0], min_funcion3[1]], [funcion3(min_funcion3[0]), funcion3(min_funcion3[1])], 'Min Función 3', 'red')
-    axs[1, 1].set_title(f'Función 3 (n_precision = {n_precision})')
-
-    plot_function(axs[1, 2], x_funcion4, y_funcion4, 'Función 4', 'pink')
-    plot_points(axs[1, 2], [min_funcion4[0], min_funcion4[1]], [funcion4(min_funcion4[0]), funcion4(min_funcion4[1])], 'Min Función 4', 'red')
-    axs[1, 2].set_title(f'Función 4 (n_precision = {n_precision})')
+        plot_function(ax, x_range, y_values, func.__name__, 'blue')
+        plot_points(ax, min_point, func(min_point), f'Min {func.__name__}', 'red')
+        ax.set_title(f'{func.__name__} (n_precision = {n_precision})')
 
     plt.tight_layout()
     plt.show()
+
