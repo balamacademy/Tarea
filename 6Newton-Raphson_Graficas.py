@@ -5,14 +5,12 @@ from mpl_toolkits.mplot3d import Axes3D
 
 # x = np.arange(0.5, 8.5, 0.5)
 def lata(x):
-    operacion = 2 * np.pi * (x**2)
+    operacion = ((2 * np.pi) * (x**2) + 500/x)
     return operacion
 
 # x = np.arange(2, 3.1, 0.1)
-# x = np.arange(2, 3.1, 0.1)
 def caja(x):
     return -1*(((20 - (2 * x)) * (10 - (2 * x))) * (x))
-
 
 # Valores entre 0 o igual a 10
 def funcion1(x):
@@ -35,39 +33,47 @@ def funcion4(x):
     return operacion
 
 
-def prueba(x):
-    return (x**2)
 
 
-def GoldenSectionSearch(x,epsilon,funcion):
-    a = x[0]
-    b = x[-1]
-    
-    golden = 0.618
-    inv_golden = 1 - golden
 
-    x1 = a + inv_golden * (b - a)
-    x2 = a + golden * (b - a)
 
-    f_x1 = funcion(x1)
-    f_x2 = funcion(x2)
 
-    while b - a > epsilon:
-        
-        if f_x1 < f_x2:
-            b = x2
-            x2 = x1
-            x1 = a + inv_golden * (b - a)
-            f_x2 = f_x1
-            f_x1 = funcion(x1)
-        else:
-            a = x1
-            x1 = x2
-            x2 = a + golden * (b - a)
-            f_x1 = f_x2
-            f_x2 = funcion(x2)
+def primera_derivada(x, f):
+    delta = 0.0001
+    return (f(x + delta) - f(x - delta)) / (2 * delta)
 
-    return (a, b)
+def segunda_derivada(x, f):
+    delta = 0.0001
+    return (f(x + delta) - 2 * f(x) + f(x - delta))/(delta**2)
+
+
+
+
+
+
+
+def metodo_newton(x, e, funcion):
+    k = 1
+    x_actual = x[k]
+    x_derivada1 = primera_derivada(x_actual, funcion)
+    x_derivada2 = segunda_derivada(x_actual, funcion)
+    x_siguiente = x_actual - (x_derivada1 / x_derivada2)
+    while (primera_derivada(x_siguiente, funcion) > e):
+        k += 1
+        if k >= len(x):
+            return x_siguiente
+        x_actual = x[k]
+        x_derivada1 = primera_derivada(x_actual, funcion)
+        x_derivada2 = segunda_derivada(x_actual, funcion)
+        x_siguiente = x_actual - (x_derivada1 / x_derivada2)
+    return x_siguiente
+
+
+
+
+
+
+
 
 
 
@@ -91,14 +97,14 @@ for n_precision in n_precisions:
     x_funcion4 = np.arange(-1.5, 3, 0.01)
 
     # Ejecutar la búsqueda exhaustiva y obtener los puntos mínimos para cada función
-    min_lata = GoldenSectionSearch(x_lata, n_precision, lata)
-    min_caja = GoldenSectionSearch(x_caja,n_precision, caja)
-    min_funcion1 = GoldenSectionSearch(x_funcion1, n_precision, funcion1)
-    min_funcion2 = GoldenSectionSearch(x_funcion2, n_precision, funcion2)
-    min_funcion3 = GoldenSectionSearch(x_funcion3, n_precision, funcion3)
-    min_funcion4 = GoldenSectionSearch(x_funcion4, n_precision, funcion4)
+    min_lata = metodo_newton(x_lata, n_precision, lata)
+    min_caja = metodo_newton(x_caja,n_precision, caja)
+    min_funcion1 = metodo_newton(x_funcion1, n_precision, funcion1)
+    min_funcion2 = metodo_newton(x_funcion2, n_precision, funcion2)
+    min_funcion3 = metodo_newton(x_funcion3, n_precision, funcion3)
+    min_funcion4 = metodo_newton(x_funcion4, n_precision, funcion4)
 
-    # Calcular los valores de las funciones en los rangos dados
+    # Calcular los metodo_newtoniones en los rangos dados
     y_lata = lata(x_lata)
     y_caja = caja(x_caja)
     y_funcion1 = funcion1(x_funcion1)

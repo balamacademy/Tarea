@@ -10,8 +10,7 @@ def lata(x):
 
 # x = np.arange(2, 3.1, 0.1)
 def caja(x):
-    operacion =(20 - 2 * x) * (10 - 2 * x) * (x)
-    return operacion
+    return -1*(((20 - (2 * x)) * (10 - (2 * x))) * (x))
 
 # Valores entre 0 o igual a 10
 def funcion1(x):
@@ -34,11 +33,6 @@ def funcion4(x):
     return operacion
 
 
-def prueba(x):
-    return (x**2)
-
-
-
 
 
 
@@ -55,22 +49,6 @@ def segunda_derivada(x, f):
 
 
 
-# def newton_raphson(x,e,f):
-#     k=1
-#     x_actual=x[k]
-#     xderiv=primera_derivada(x_actual,f)
-#     xderiv2=segunda_derivada(x_actual,f)
-#     xsig= x_actual  - (xderiv/xderiv2)
-#     while (primera_derivada(xsig,f) > e):
-#         k+=1
-#         if k >= len(x):
-#             return xsig
-#         x_actual=x[k]
-#         xderiv=primera_derivada(x_actual,f)
-#         xderiv2=segunda_derivada(x_actual,f)
-#         xsig= x_actual  - (xderiv/xderiv2)
-        
-#     return xsig
 
 
 
