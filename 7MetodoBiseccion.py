@@ -51,8 +51,9 @@ def segundaderivadanumerica(x_actual,f):
 
 
 
-def metodo_biseccion(a_orginal, b_original, e, funcion):
-
+def metodo_biseccion(x, funcion,e):
+    a_orginal = x[0]
+    b_original = x[-1]
 
     a = np.random.uniform(a_orginal, b_original)
     b = np.random.uniform(a_orginal, b_original)
@@ -89,6 +90,31 @@ def metodo_biseccion(a_orginal, b_original, e, funcion):
     return x1 , x2
 
 
+
+
+n_precision = 0.5
+
+
+x_lata = np.arange(0.5, 8.5)
+print(metodo_biseccion(x_lata, lata,  n_precision))
+
+x_caja = np.arange(2, 3.1)
+print(metodo_biseccion(x_caja, caja,  n_precision))
+
+
+x_funcion1 = np.arange(0.1, 10)
+print(metodo_biseccion(x_funcion1, funcion1, n_precision))
+
+# x_funcion2 = np.arange(0.1, 5)
+# print(metodo_biseccion(x_funcion2, funcion2, n_precision))
+
+
+x_funcion3 = np.arange(-2.5, 2.5)
+print(metodo_biseccion(x_funcion3, funcion3, n_precision))
+
+
+x_funcion4 = np.arange(-1.5, 3)
+print(metodo_biseccion(x_funcion4, funcion4,  n_precision))
 
 
 

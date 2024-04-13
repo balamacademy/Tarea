@@ -55,7 +55,18 @@ def calculozensecante(x2,x1,f):
     op=numerador/denominador
     return x2 - op
 
-def metodosecante(a_orginal,b_original,e,f):
+
+
+
+
+
+
+def metodosecante(x,f,e):
+
+    a_orginal = x[0]
+    b_original = x[-1]
+
+
     a = np.random.uniform(a_orginal, b_original)
     b = np.random.uniform(a_orginal, b_original)
     while(primeraderivadanumerica(a,f) > 0):
@@ -76,3 +87,30 @@ def metodosecante(a_orginal,b_original,e,f):
             z=0
             z = calculozensecante(x2,x1,f)
     return x1 , x2
+
+
+
+n_precision = 0.5
+
+x_lata = np.arange(0.5, 8.5)
+print(metodosecante(x_lata, lata,  n_precision))
+
+x_caja = np.arange(2, 3.1)
+print(metodosecante(x_caja, caja,  n_precision))
+
+
+x_funcion1 = np.arange(0.1, 10)
+print(metodosecante(x_funcion1, funcion1, n_precision))
+
+# x_funcion2 = np.arange(0.1, 5)
+# print(metodosecante(x_funcion2, funcion2, n_precision))
+
+
+x_funcion3 = np.arange(-2.5, 2.5)
+print(metodosecante(x_funcion3, funcion3, n_precision))
+
+
+x_funcion4 = np.arange(-1.5, 3)
+print(metodosecante(x_funcion4, funcion4,  n_precision))
+
+

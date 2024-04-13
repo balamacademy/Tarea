@@ -109,7 +109,7 @@ for n_precision in n_precisions:
     x_lata = np.arange(0.5, 8.5, 0.01)
     x_caja = np.arange(2, 3.1, 0.01)
     x_funcion1 = np.arange(0.1, 10, 0.01)
-    x_funcion2 = np.arange(0.1, 5, 0.01)
+    # x_funcion2 = np.arange(0.1, 5, 0.01)
     x_funcion3 = np.arange(-2.5, 2.5, 0.01)
     x_funcion4 = np.arange(-1.5, 3, 0.01)
 
@@ -117,7 +117,7 @@ for n_precision in n_precisions:
     min_lata = metodo_biseccion(x_lata, n_precision, lata)
     min_caja = metodo_biseccion(x_caja,n_precision, caja)
     min_funcion1 = metodo_biseccion(x_funcion1, n_precision, funcion1)
-    min_funcion2 = metodo_biseccion(x_funcion2, n_precision, funcion2)
+    # min_funcion2 = metodo_biseccion(x_funcion2, n_precision, funcion2)
     min_funcion3 = metodo_biseccion(x_funcion3, n_precision, funcion3)
     min_funcion4 = metodo_biseccion(x_funcion4, n_precision, funcion4)
 
@@ -125,7 +125,7 @@ for n_precision in n_precisions:
     y_lata = lata(x_lata)
     y_caja = caja(x_caja)
     y_funcion1 = funcion1(x_funcion1)
-    y_funcion2 = funcion2(x_funcion2)
+    # y_funcion2 = funcion2(x_funcion2)
     y_funcion3 = funcion3(x_funcion3)
     y_funcion4 = funcion4(x_funcion4)
 
@@ -144,9 +144,7 @@ for n_precision in n_precisions:
     plot_points(axs[0, 2], [min_funcion1[0], min_funcion1[1]], [funcion1(min_funcion1[0]), funcion1(min_funcion1[1])], 'Min Función 1', 'red')
     axs[0, 2].set_title(f'Función 1 (n_precision = {n_precision})')
 
-    plot_function(axs[1, 0], x_funcion2, y_funcion2, 'Función 2', 'purple')
-    plot_points(axs[1, 0], [min_funcion2[0], min_funcion2[1]], [funcion2(min_funcion2[0]), funcion2(min_funcion2[1])], 'Min Función 2', 'red')
-    axs[1, 0].set_title(f'Función 2 (n_precision = {n_precision})')
+    # plot_function(axs[1, 0], x_funcion2, y_funcion2, 'Función 2', 'purple')g
 
     plot_function(axs[1, 1], x_funcion3, y_funcion3, 'Función 3', 'brown')
     plot_points(axs[1, 1], [min_funcion3[0], min_funcion3[1]], [funcion3(min_funcion3[0]), funcion3(min_funcion3[1])], 'Min Función 3', 'red')
@@ -158,8 +156,3 @@ for n_precision in n_precisions:
 
     plt.tight_layout()
     plt.show()
-
-
-
-
-
